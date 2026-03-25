@@ -3,18 +3,15 @@ const cursor = document.getElementById('cursor');
 const trail = document.getElementById('cursorTrail');
 
 document.addEventListener('mousemove', (e) => {
-  // Main cursor - snaps immediately
   cursor.style.left = e.clientX - 7 + 'px';
   cursor.style.top  = e.clientY - 7 + 'px';
 
-  // Trail - lags behind for effect
   setTimeout(() => {
     trail.style.left = e.clientX - 18 + 'px';
     trail.style.top  = e.clientY - 18 + 'px';
   }, 80);
 });
 
-// Scale cursor on hover over interactive elements
 document.querySelectorAll('a, button, input, select, .hover-card').forEach(el => {
   el.addEventListener('mouseenter', () => {
     cursor.style.transform = 'scale(2.5)';
@@ -26,7 +23,7 @@ document.querySelectorAll('a, button, input, select, .hover-card').forEach(el =>
   });
 });
 
-// ===== HERO PARALLAX (mouse reactive) =====
+// ===== HERO PARALLAX =====
 const heroContent = document.querySelector('.hero-content');
 const heroBall    = document.getElementById('heroBall');
 
@@ -53,40 +50,32 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.card, .player-card, .dev-card').forEach(el => {
-  el.style.opacity   = '0';
-  el.style.transform = 'translateY(40px)';
-  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-  observer.observe(el);
-});
-
-// Check if we are running on localhost or on the web
+// ===== API CONFIGURATION =====
 const API = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:3000'
-    : 'https://cricket-clubb.onrender.com'; // Your Render URL
+    : 'https://cricket-clubb.onrender.com';
 
-
+// ===== FETCH PLAYERS FROM BACKEND =====
 async function loadPlayers() {
   const grid = document.getElementById('playersGrid');
   try {
     const res  = await fetch(`${API}/api/members`);
     const data = await res.json();
 
-    if (data.length === 0) {
+    if (!data || data.length === 0) {
       grid.innerHTML = '<p class="loading-text">No players found in database.</p>';
       return;
     }
 
     grid.innerHTML = data.map(p => `
       <div class="player-card hover-card">
-        <div class="avatar">🏏</div>
+        <div class="avatar"></div>
         <h3>${p.name}</h3>
         <span class="role">${p.role}</span>
-        <p>${p.email}</p>
+        <p>${p.email || 'No email provided'}</p>
       </div>
     `).join('');
 
-    // Re-observe newly created cards
     document.querySelectorAll('.player-card').forEach(el => {
       el.style.opacity   = '0';
       el.style.transform = 'translateY(40px)';
@@ -95,6 +84,7 @@ async function loadPlayers() {
     });
 
   } catch (err) {
+    console.error("Fetch error:", err);
     grid.innerHTML = '<p class="loading-text">⚠ Could not connect to backend.</p>';
   }
 }
@@ -122,12 +112,15 @@ document.getElementById('joinForm').addEventListener('submit', async (e) => {
 
     if (res.ok) {
       msg.textContent = '✅ Application submitted! Welcome to the squad.';
+      msg.style.color = '#a3ff33';
       e.target.reset();
-      loadPlayers(); // Refresh the players list
+      loadPlayers();
     } else {
       msg.textContent = '❌ Error: ' + (data.error || 'Something went wrong.');
+      msg.style.color = '#ff4d4d';
     }
-  } catch {
-    msg.textContent = '❌ Could not reach server. Is the backend running?';
+  } catch (err) {
+    msg.textContent = '❌ Could not reach server. Check your connection.';
+    msg.style.color = '#ff4d4d';
   }
 });

@@ -22,14 +22,19 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// ADD member (FIXED: Added email to the destructuring and SQL query)
+// ADD member (UPDATED with email field)
 router.post('/', async (req, res) => {
-  const { name, email, role } = req.body; // Added 'email' here
+  const { name, email, role } = req.body;
+
+  // Validation check
+  if (!name || !email || !role) {
+    return res.status(400).json({ error: "All fields (name, email, role) are required." });
+  }
 
   try {
     const [result] = await db.query(
-      'INSERT INTO members (name, email, role) VALUES (?, ?, ?)', // Added 'email' and 3rd '?'
-      [name, email, role] // Added 'email' to the values array
+      'INSERT INTO members (name, email, role) VALUES (?, ?, ?)',
+      [name, email, role]
     );
 
     res.json({ id: result.insertId, name, email, role });
