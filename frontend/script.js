@@ -60,8 +60,11 @@ document.querySelectorAll('.card, .player-card, .dev-card').forEach(el => {
   observer.observe(el);
 });
 
-// ===== FETCH PLAYERS FROM BACKEND =====
-const API = 'http://localhost:3000'; // Change to your Vercel URL after deploy
+// Check if we are running on localhost or on the web
+const API = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:3000'
+    : 'https://cricket-clubb.onrender.com'; // Your Render URL
+
 
 async function loadPlayers() {
   const grid = document.getElementById('playersGrid');
