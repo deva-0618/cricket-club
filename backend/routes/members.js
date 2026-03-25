@@ -22,18 +22,19 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// ADD member
+// ADD member (FIXED: Added email to the destructuring and SQL query)
 router.post('/', async (req, res) => {
-  const { name, role } = req.body;
+  const { name, email, role } = req.body; // Added 'email' here
 
   try {
     const [result] = await db.query(
-      'INSERT INTO members (name, role) VALUES (?, ?)',
-      [name, role]
+      'INSERT INTO members (name, email, role) VALUES (?, ?, ?)', // Added 'email' and 3rd '?'
+      [name, email, role] // Added 'email' to the values array
     );
 
-    res.json({ id: result.insertId, name, role });
+    res.json({ id: result.insertId, name, email, role });
   } catch (err) {
+    console.error("Database Insert Error:", err.message);
     res.status(500).json({ error: err.message });
   }
 });

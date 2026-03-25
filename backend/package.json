@@ -4,9 +4,10 @@
   "description": "Cricket Club Website - Full Stack App by Deva Kumar, Kristu Jayanti University, BSc AIML",
   "main": "backend/server.js",
   "scripts": {
-    "start": "node backend/server.js",
-    "dev": "nodemon backend/server.js"
-  },
+  "start": "node server.js",
+  "dev": "nodemon server.js"
+},
+"main": "server.js",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
