@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Royal Cricket Club</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
+
+  <!-- NAV -->
+  <nav class="navbar">
+    <div class="logo">🏏 RCC</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#players">Players</a></li>
+      <li><a href="#join">Join</a></li>
+      <li><a href="#developer">Developer</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content" data-tilt>
+      <h1 class="hero-title">ROYAL<br/><span>CRICKET</span><br/>CLUB</h1>
+      <p class="hero-sub">Est. 2010 · Bengaluru · Champions of the Field</p>
+      <a href="#join" class="cta-btn">Join the Squad →</a>
+    </div>
+    <div class="hero-ball" id="heroBall">🏏</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about section">
+    <div class="section-title">About Us</div>
+    <div class="about-grid">
+      <div class="card hover-card">
+        <h3>🏆 Trophies Won</h3>
+        <p class="big-num">24</p>
+        <p>State & National level championships since 2010.</p>
+      </div>
+      <div class="card hover-card">
+        <h3>👥 Members</h3>
+        <p class="big-num">120+</p>
+        <p>Active players across all age groups.</p>
+      </div>
+      <div class="card hover-card">
+        <h3>📍 Ground</h3>
+        <p class="big-num">Bengaluru</p>
+        <p>Training every weekend at Chinnaswamy Grounds.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLAYERS -->
+  <section id="players" class="players section">
+    <div class="section-title">Star Players</div>
+    <div class="players-grid" id="playersGrid">
+      <!-- Loaded dynamically from backend -->
+      <p class="loading-text">Loading players from database...</p>
+    </div>
+  </section>
+
+  <!-- JOIN FORM -->
+  <section id="join" class="join section">
+    <div class="section-title">Join the Club</div>
+    <form class="join-form" id="joinForm">
+      <input type="text" id="name" placeholder="Your Full Name" required />
+      <input type="email" id="email" placeholder="Email Address" required />
+      <select id="role">
+        <option value="Batsman">Batsman</option>
+        <option value="Bowler">Bowler</option>
+        <option value="All-Rounder">All-Rounder</option>
+        <option value="Wicketkeeper">Wicketkeeper</option>
+      </select>
+      <button type="submit" class="cta-btn">Submit Application</button>
+      <p id="formMsg" class="form-msg"></p>
+    </form>
+  </section>
+
+  <!-- DEVELOPER SECTION -->
+  <section id="developer" class="developer section">
+    <div class="section-title">Developer</div>
+    <div class="dev-card hover-card">
+      <div class="dev-avatar">💻</div>
+      <h2>Deva Kumar</h2>
+      <p><strong>College:</strong> Kristu Jayanti University</p>
+      <p><strong>Course:</strong> BSc AIML</p>
+      <p><strong>Project:</strong> Royal Cricket Club — Full Stack Web App</p>
+      <p><strong>Stack:</strong> HTML · CSS · JS · Node.js · PostgreSQL · Vercel</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2026 Royal Cricket Club · Built by <strong>Deva Kumar</strong> · Kristu Jayanti University · BSc AIML</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
